@@ -18,4 +18,13 @@ class TestActionPerformer {
         int dishCount = ap.totalDishes(ap.totalSaturation(3));
         Assertions.assertEquals(6, dishCount);
     }
+
+    @Test
+    void totalRiceTest(){
+        ActionPerformer ap = new ActionPerformer();
+        int riceBushesCount = ap.totalRice(9);
+        Assertions.assertEquals(84, riceBushesCount);
+        riceBushesCount = ap.totalRice(6);
+        Assertions.assertEquals(56, riceBushesCount);
+    }
 }

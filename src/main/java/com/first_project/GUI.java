@@ -8,9 +8,9 @@ public class GUI extends JFrame {
     private JPanel canvas;
     private JSlider populationSlider;
     public JLabel populationLabel;
-    private JLabel riceCount;
-    private JLabel potatoCount;
-    private JLabel cornCount;
+    public JLabel riceCount;
+    public JLabel potatoCount;
+    public JLabel cornCount;
     private JLabel baseSaturation;
     private JLabel baseDishSat;
     public JLabel simpleDishCount;
