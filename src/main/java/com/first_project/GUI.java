@@ -5,12 +5,18 @@ public class GUI extends JFrame {
 
     private JPanel canvas;
     private JSlider populationSlider;
-    private JLabel populationLabel;
+    public JLabel populationLabel;
     private JLabel riceCount;
     private JLabel potatoCount;
     private JLabel cornCount;
+    private JLabel baseSaturation;
+    private JLabel baseDishSat;
+    public JLabel simpleDishCount;
+    EventsCallback eventsCallback;
 
-    public GUI() {
+    public GUI(EventsCallback eventsCallback) {
+        this.eventsCallback = eventsCallback;
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension currentDimension = toolkit.getScreenSize();
@@ -29,6 +35,10 @@ public class GUI extends JFrame {
         populationSlider.setSnapToTicks(true);
         populationSlider.setMajorTickSpacing(1);
         populationSlider.setPaintTicks(true);
+        populationSlider.setValue(1);
+        baseSaturation = new JLabel("Базовое насыщение колониста в день: 1.6");
+        baseDishSat = new JLabel("базовое насыщение простых блюд: 0.9");
+        simpleDishCount = new JLabel("кол-во простых блюд: 0");
         populationLabel = new JLabel("population: 0");
         cornCount = new JLabel("corn count: 0");
         riceCount = new JLabel("rice count: 0");
@@ -36,6 +46,7 @@ public class GUI extends JFrame {
         populationSlider.setPreferredSize(new Dimension(500, 75));
         populationLabel.setPreferredSize(new Dimension(100, 20));
         initConstrains();
+        setEvents();
         this.add(canvas);
         canvas.revalidate();
     }
@@ -46,6 +57,9 @@ public class GUI extends JFrame {
         GridBagConstraints cornConstrains = new GridBagConstraints();
         GridBagConstraints riceConstrains = new GridBagConstraints();
         GridBagConstraints potatoConstrains = new GridBagConstraints();
+        GridBagConstraints dishConstrains = new GridBagConstraints();
+        GridBagConstraints saturationConstrains = new GridBagConstraints();
+        GridBagConstraints simpleCountConstrains = new GridBagConstraints();
         canvas.setLayout(new GridBagLayout());
 
         populationLabelConstrains.gridx = 0;
@@ -54,7 +68,7 @@ public class GUI extends JFrame {
 
         populationSliderConstrains.gridx = 0;
         populationSliderConstrains.gridy = 1;
-        populationSliderConstrains.gridwidth = 4;
+        populationSliderConstrains.gridwidth = 3;
         populationSliderConstrains.weightx = 0.1;
 
         cornConstrains.gridx = 5;
@@ -67,9 +81,20 @@ public class GUI extends JFrame {
 
         potatoConstrains.gridx = 5;
         potatoConstrains.gridy = 2;
-        riceConstrains.weightx = 0.5;
+        potatoConstrains.weightx = 0.5;
 
+        dishConstrains.gridx = 4;
+        dishConstrains.gridy = 0;
 
+        saturationConstrains.gridx = 4;
+        saturationConstrains.gridy = 1;
+
+        simpleCountConstrains.gridx = 4;
+        simpleCountConstrains.gridy = 2;
+
+        canvas.add(simpleDishCount, simpleCountConstrains);
+        canvas.add(baseSaturation, saturationConstrains);
+        canvas.add(baseDishSat, dishConstrains);
         canvas.add(populationSlider, populationSliderConstrains);
         canvas.add(populationLabel, populationLabelConstrains);
         canvas.add(cornCount, cornConstrains);
@@ -79,7 +104,10 @@ public class GUI extends JFrame {
     }
 
     private void setEvents() {
-
+        populationSlider.addChangeListener(e -> {
+            int currentPop = populationSlider.getValue();
+            eventsCallback.populationChaged(currentPop);
+        });
     }
 
 }
