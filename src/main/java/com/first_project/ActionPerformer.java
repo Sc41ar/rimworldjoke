@@ -1,3 +1,7 @@
+package com.first_project;
+
+import com.first_project.GUI;
+
 public class ActionPerformer implements EventsCallback {
     int population;
     GUI gui;

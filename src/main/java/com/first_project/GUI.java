@@ -1,3 +1,5 @@
+package com.first_project;
+
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,2 +1,4 @@
-App.class
-GUI.class
+com\first_project\ActionPerformer.class
+com\first_project\App.class
+com\first_project\GUI.class
+com\first_project\EventsCallback.class
